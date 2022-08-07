@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{ template "web/template/pos/header" . }}
+
+<body class="pos body-custom">
+<p style="display: none" id="baseURL">{{ .BaseURL }}</p>
+<p style="display: none" id="serverURL">{{ .ServerURL }}</p>
+<nav class="navbar navbar-dark navbar-color" role="navigation">
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a class="navbar-brand" href="#">Toko Baba</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="" class="navbar-brand" id="full_name">Right</a></li>
+        </ul>
+    </div>
+</nav>
+<table class="layout-table w-100">
+    <tbody>
+    <tr>
+        <td style="width: 1000px;">
+            {{ template "web/template/pos/left-content" . }}
+        </td>
+        <td>
+            {{ template "web/template/pos/right-content" . }}
+        </td>
+    </tr>
+    </tbody>
+</table>
+{{ template "web/template/pos/modal/add-member" . }}
+{{ template "web/template/pos/modal/add-product-cart" . }}
+{{ template "web/template/pos/modal/payment" . }}
+</body>
+{{ template "web/template/pos/footer" . }}
+</html>
