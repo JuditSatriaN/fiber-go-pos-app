@@ -16,7 +16,7 @@ function getProductFromTextField(search) {
             "search": search,
         },
     }).done(function (data) {
-        $.each(data, function( index, value ) {
+        $.each(data, function (index, value) {
             value["real_price"] = ($("#member-id").val() === "") ? value["price"] : value["member_price"];
             value["total_real_price"] = value["real_price"] * value["multiplier"];
         });

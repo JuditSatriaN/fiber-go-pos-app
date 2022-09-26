@@ -32,7 +32,7 @@ function initTblCarts() {
                     events: window.eventDeleteCart,
                 },
                 {
-                    width: 220,
+                    width: 350,
                     align: 'left',
                     field: 'name',
                     widthUnit: "px",
@@ -67,8 +67,26 @@ function initTblCarts() {
                 },
                 {
                     width: 180,
-                    title: 'Total',
+                    title: 'Total Awal',
                     field: 'total',
+                    align: 'center',
+                    widthUnit: "px",
+                    valign: 'middle',
+                    formatter: priceFormatter
+                },
+                {
+                    width: 180,
+                    title: 'Discount',
+                    align: 'center',
+                    widthUnit: "px",
+                    valign: 'middle',
+                    field: 'discount_per_pcs',
+                    formatter: priceFormatter
+                },
+                {
+                    width: 180,
+                    title: 'Total Akhir',
+                    field: 'final_total',
                     align: 'center',
                     widthUnit: "px",
                     valign: 'middle',

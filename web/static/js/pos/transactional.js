@@ -7,8 +7,11 @@ function addProductToTblCart(row) {
 
     // custom data to support with table
     row["qty"] = 1;
-    row["price_used"] = row["total_real_price"]
-    row["total"] = row["total_real_price"] * row["qty"];
+    row["price_used"] = row["total_real_price"];
+
+    row["total"] = row["price_used"];
+    row["discount_per_pcs"] = row["discount"];
+    row["final_total"] = row["total"] - row["discount"];
 
     // insert data to some object
     insertDataCart(row);

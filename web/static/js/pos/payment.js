@@ -6,11 +6,12 @@ function openPaymentModal() {
     $('#modalPayment').modal('show');
     $('#modalPayment #totalTransaction').val($("#totalPembelian").text());
     $("#modalPayment #totalPayment").val("0");
-    $("#modalPayment #totalPayment").trigger("change")
+    $("#modalPayment #totalPayment").trigger("change");
 
     let totalPayment = convertIDRToNumber($("#modalPayment #totalPayment").val());
     let totalTransaction = convertIDRToNumber($("#modalPayment #totalTransaction").val());
     let change = totalPayment - totalTransaction;
+    addStructItem();
     $("#modalPayment #numeric_change").val(change);
     $("#modalPayment #change").val(formatIDR(change));
 }
@@ -56,4 +57,28 @@ function processPayment() {
     alertify.success("Transaksi Berhasil");
     $('#modalPayment').modal('hide');
     resetCurrentTransaction()
+}
+
+function addStructItem() {
+    let htmlStruct = ``
+    for (let index in getAllDataCarts()) {
+        let cart = getDataCartByIndex(index)
+        htmlStruct += `<div class="row">  
+                       <div class="col-3">` + cart["name"].toString() + `</div>
+                       <div class="col-3" style="text-align: center;">` + cart["qty"] + `</div>
+                       <div class="col-3" style="text-align: center;">` + cart["price_used"] + `</div>
+                       <div class="col-3" style="text-align: center;">` + cart["final_total"] + `</div>
+                        </div>`
+    }
+    $("#modalPayment #content-items").html(htmlStruct);
+    let date = new Date();
+    let dateStr =
+        ("00" + (date.getMonth() + 1)).slice(-2) + "/" +
+        ("00" + date.getDate()).slice(-2) + "/" +
+        date.getFullYear() + " " +
+        ("00" + date.getHours()).slice(-2) + ":" +
+        ("00" + date.getMinutes()).slice(-2) + ":" +
+        ("00" + date.getSeconds()).slice(-2);
+    $("#modalPayment #dateNow").html(dateStr);
+    $("#modalPayment #cashier-struct").html("Kasir : "+ sessionStorage.getItem("full_name").toString());
 }

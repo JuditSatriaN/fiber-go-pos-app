@@ -26,6 +26,8 @@ function updateQtyDataCart(index, qty) {
 
     let data = dataCarts[index];
     dataCarts[index]["total"] = data["price_used"] * data["qty"];
+    dataCarts[index]["discount_per_pcs"] = data["discount"] * data["qty"];
+    dataCarts[index]["final_total"] = data["total"] - data["discount_per_pcs"];
 }
 
 function removeAllDataCart() {
