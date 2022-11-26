@@ -1,4 +1,5 @@
 <!-- Load framework javascript or third party -->
+<script src="{{ .StaticUrl }}/vendor/axios/dist/axios.js"></script>
 <script src="{{ .StaticUrl }}/vendor/jquery/jquery.min.js"></script>
 <script src="{{ .StaticUrl }}/vendor/alertifyjs/alertify.min.js"></script>
 <script src="{{ .StaticUrl }}/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -7,7 +8,8 @@
 <script src="{{ .StaticUrl }}/vendor/fontawesome/js/all.js" data-search-pseudo-elements></script>
 
 <!-- Load custom javascript -->
-<script src="{{ .StaticUrl }}/js/utils/errors.js"></script>
+<script src="{{ .StaticUrl }}/js/utils/popup.js"></script>
+<script src="{{ .StaticUrl }}/js/utils/error.js"></script>
 <script src="{{ .StaticUrl }}/js/utils/constant.js"></script>
 <script src="{{ .StaticUrl }}/js/utils/qty_formatter.js"></script>
 <script src="{{ .StaticUrl }}/js/utils/price_formatter.js"></script>

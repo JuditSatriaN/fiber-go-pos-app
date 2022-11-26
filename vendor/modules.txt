@@ -1,22 +1,6 @@
 # github.com/andybalholm/brotli v1.0.4
 ## explicit; go 1.12
 github.com/andybalholm/brotli
-# github.com/elastic/go-elasticsearch/v7 v7.17.1
-## explicit; go 1.11
-github.com/elastic/go-elasticsearch/v7
-github.com/elastic/go-elasticsearch/v7/esapi
-github.com/elastic/go-elasticsearch/v7/estransport
-github.com/elastic/go-elasticsearch/v7/internal/version
-# github.com/go-playground/locales v0.14.0
-## explicit; go 1.13
-github.com/go-playground/locales
-github.com/go-playground/locales/currency
-# github.com/go-playground/universal-translator v0.18.0
-## explicit; go 1.13
-github.com/go-playground/universal-translator
-# github.com/go-playground/validator/v10 v10.11.0
-## explicit; go 1.13
-github.com/go-playground/validator/v10
 # github.com/goccy/go-json v0.9.7
 ## explicit; go 1.12
 github.com/goccy/go-json
@@ -40,7 +24,6 @@ github.com/gofiber/fiber/v2/internal/isatty
 github.com/gofiber/fiber/v2/internal/msgp
 github.com/gofiber/fiber/v2/internal/schema
 github.com/gofiber/fiber/v2/internal/uuid
-github.com/gofiber/fiber/v2/middleware/encryptcookie
 github.com/gofiber/fiber/v2/middleware/filesystem
 github.com/gofiber/fiber/v2/middleware/logger
 github.com/gofiber/fiber/v2/middleware/recover
@@ -55,10 +38,6 @@ github.com/gofiber/template/utils
 # github.com/golang-jwt/jwt/v4 v4.4.2
 ## explicit; go 1.16
 github.com/golang-jwt/jwt/v4
-# github.com/jmoiron/sqlx v1.3.5
-## explicit; go 1.10
-github.com/jmoiron/sqlx
-github.com/jmoiron/sqlx/reflectx
 # github.com/joho/godotenv v1.4.0
 ## explicit; go 1.12
 github.com/joho/godotenv
@@ -67,19 +46,6 @@ github.com/joho/godotenv
 github.com/klauspost/compress/flate
 github.com/klauspost/compress/gzip
 github.com/klauspost/compress/zlib
-# github.com/leodido/go-urn v1.2.1
-## explicit; go 1.13
-github.com/leodido/go-urn
-# github.com/lib/pq v1.2.0
-## explicit
-github.com/lib/pq
-github.com/lib/pq/oid
-github.com/lib/pq/scram
-# github.com/stretchr/testify v1.7.1
-## explicit; go 1.13
-# github.com/tanimutomo/sqlfile v1.0.0
-## explicit; go 1.13
-github.com/tanimutomo/sqlfile
 # github.com/valyala/bytebufferpool v1.0.0
 ## explicit
 github.com/valyala/bytebufferpool
@@ -92,20 +58,8 @@ github.com/valyala/fasthttp/stackless
 # github.com/valyala/tcplisten v1.0.0
 ## explicit; go 1.12
 github.com/valyala/tcplisten
-# golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
-## explicit; go 1.17
-golang.org/x/crypto/bcrypt
-golang.org/x/crypto/blowfish
-golang.org/x/crypto/sha3
 # golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8
 ## explicit; go 1.17
-golang.org/x/sys/cpu
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
-# golang.org/x/text v0.3.7
-## explicit; go 1.17
-golang.org/x/text/internal/language
-golang.org/x/text/internal/language/compact
-golang.org/x/text/internal/tag
-golang.org/x/text/language

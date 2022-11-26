@@ -80,4 +80,10 @@ function resetCurrentTransaction() {
     $("#totalPrice").html("0");
     $("#totalDiscount").html("0");
     $("#totalPembelian").html("0");
+
+    $("#member-id").val("")
+    $("#member-name").val("")
+    $("#is-inserted").val("false");
+    $("#btnAddMember").html("Add Member");
+    $("#btnAddMember").prop('disabled', false);
 }

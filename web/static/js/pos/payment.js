@@ -56,6 +56,7 @@ function processPayment() {
     }
     alertify.success("Transaksi Berhasil");
     $('#modalPayment').modal('hide');
+    sendDataToAPI()
     resetCurrentTransaction()
 }
 
@@ -80,5 +81,65 @@ function addStructItem() {
         ("00" + date.getMinutes()).slice(-2) + ":" +
         ("00" + date.getSeconds()).slice(-2);
     $("#modalPayment #dateNow").html(dateStr);
-    $("#modalPayment #cashier-struct").html("Kasir : "+ sessionStorage.getItem("full_name").toString());
+    $("#modalPayment #cashier-struct").html("Kasir : " + sessionStorage.getItem("full_name").toString());
+}
+
+function sendDataToAPI() {
+    let salesDetail = [];
+    let userID = sessionStorage.getItem("user_id");
+    let memberID = $("#member-id").val()
+
+    for (let i = 0; i < getTotalDataCarts(); i++) {
+        let product = getDataCartByIndex(i)
+        salesDetail.push({
+            "invoice": "2",
+            "user_id": userID,
+            "plu": product["plu"],
+            "name": product["name"],
+            "unit_name": product["unit_name"],
+            "barcode": product["barcode"],
+            "ppn": product["ppn"],
+            "qty": product["qty"],
+            "price": product["price_used"],
+            "purchase": product["purchase"],
+            "discount": product["discount"],
+            "inventory_id": product["id"],
+            "member_id": memberID,
+        });
+    }
+    let salesHead = {
+        "invoice": "2",
+        "user_id": userID,
+        "total_item": 1,
+        "total_price": 1,
+        "total_purchase": 1,
+        "total_tax": 1,
+        "total_discount": 1,
+        "total_pay": 1,
+    }
+
+    let data = {"sales_head": salesHead, "sales_detail": salesDetail}
+    processSalesAjaxRequest(data)
+}
+
+async function sendSalesRequest(data) {
+    let serverURL = $('#serverURL').text();
+    return await axios({
+        url: serverURL + "api/sales",
+        data: data,
+        method: 'POST',
+    })
+}
+
+function processSalesAjaxRequest(data) {
+    // let loadingIndicator = $('body').loadingIndicator().data("loadingIndicator");
+
+    sendSalesRequest(data).then(function (results) {
+        console.log("Results : " + results)
+    }).catch(function (err) {
+        console.log("Err : " + err.response.data.message)
+        buildErrorPopup(err.response.data.message);
+    }).finally(function () {
+        // loadingIndicator.hide();
+    });
 }
