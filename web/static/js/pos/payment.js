@@ -4,6 +4,7 @@ function openPaymentModal() {
         return false
     }
     $('#modalPayment').modal('show');
+    getInvoicePayment();
     $('#modalPayment #totalTransaction').val($("#totalPembelian").text());
     $("#modalPayment #totalPayment").val("0");
     $("#modalPayment #totalPayment").trigger("change");
@@ -48,6 +49,17 @@ $("#modalPayment #totalPayment").on("keydown", function (e) {
     }
 });
 
+function getInvoicePayment() {
+    let serverURL = $('#serverURL').text();
+    axios.get(serverURL + 'api/invoice/generate_invoice').then(function (result) {
+        $("#modalPayment #invoice").html("Faktur : " + result.data.data);
+        $("#modalPayment #invoice-value").val(result.data.data)
+    }).catch(function (err) {
+        $('#modalPayment').modal('hide');
+        buildErrorPopup("Gagal mendapatkan faktur, Harap hubungi admin");
+    });
+}
+
 function processPayment() {
     let change = parseFloat($("#modalPayment #numeric_change").val().trim());
     if (change < 0) {
@@ -66,9 +78,10 @@ function addStructItem() {
         let cart = getDataCartByIndex(index)
         htmlStruct += `<div class="row">  
                        <div class="col-3">` + cart["name"].toString() + `</div>
-                       <div class="col-3" style="text-align: center;">` + cart["qty"] + `</div>
-                       <div class="col-3" style="text-align: center;">` + cart["price_used"] + `</div>
-                       <div class="col-3" style="text-align: center;">` + cart["final_total"] + `</div>
+                       <div class="col-2" style="text-align: center;">` + cart["unit_name"].toString() + `</div>
+                       <div class="col-2" style="text-align: right;">` + formatQty(cart["qty"]) + `</div>
+                       <div class="col-2" style="text-align: right;">` + priceFormatter(cart["price_used"]) + `</div>
+                       <div class="col-3" style="text-align: right;">` + priceFormatter(cart["final_total"]) + `</div>
                         </div>`
     }
     $("#modalPayment #content-items").html(htmlStruct);
@@ -88,11 +101,17 @@ function sendDataToAPI() {
     let salesDetail = [];
     let userID = sessionStorage.getItem("user_id");
     let memberID = $("#member-id").val()
+    let invoice = $("#modalPayment #invoice-value").val()
+
+    let memberIDInt = 0
+    if (memberID !== "") {
+        memberIDInt = parseInt(memberID)
+    }
 
     for (let i = 0; i < getTotalDataCarts(); i++) {
         let product = getDataCartByIndex(i)
         salesDetail.push({
-            "invoice": "2",
+            "invoice": invoice,
             "user_id": userID,
             "plu": product["plu"],
             "name": product["name"],
@@ -104,11 +123,11 @@ function sendDataToAPI() {
             "purchase": product["purchase"],
             "discount": product["discount"],
             "inventory_id": product["id"],
-            "member_id": memberID,
+            "member_id": memberIDInt,
         });
     }
     let salesHead = {
-        "invoice": "2",
+        "invoice": invoice,
         "user_id": userID,
         "total_item": 1,
         "total_price": 1,

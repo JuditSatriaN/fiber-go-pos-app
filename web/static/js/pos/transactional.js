@@ -5,6 +5,13 @@ function addProductToTblCart(row) {
         return false
     }
 
+    if (row["stock"] <= 0) {
+        let pesan = "Stock kurang dari 0, Stock sekarang = " + row["stock"].toString()
+        alertify.alert('Pesan Dialog', pesan);
+        return false
+    }
+
+
     // custom data to support with table
     row["qty"] = 1;
     row["price_used"] = row["total_real_price"];
@@ -29,6 +36,12 @@ function deleteProductToTblCart(index) {
 }
 
 function updateProductToTblCart(index, qty_value) {
+    if (getDataCartByIndex(index)["stock"] <= qty_value) {
+        let pesan = "Stock kurang dari " + qty_value + ", Stock sekarang = " + getDataCartByIndex(index)["stock"].toString()
+        alertify.alert('Pesan Dialog', pesan);
+        return false
+    }
+
     updateQtyDataCart(index, qty_value);
     $('#tableCarts').bootstrapTable('updateRow', {
         index: index,
