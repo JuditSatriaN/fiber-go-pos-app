@@ -1,7 +1,7 @@
 document.querySelector('#search_product').addEventListener('keypress', function (e) {
     e.stopImmediatePropagation();
     if (e.key === 'Enter') {
-        getProductFromTextField(this.value)
+        getProductFromTextField(this.value.trim())
     }
 });
 
@@ -34,5 +34,4 @@ function addProductFromSearch(row) {
     }
     $('#modalAddProductCart').modal('show');
     $("#table-add-product-cart").bootstrapTable('load', row)
-
 }

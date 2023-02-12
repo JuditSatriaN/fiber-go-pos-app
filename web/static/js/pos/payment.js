@@ -66,10 +66,7 @@ function processPayment() {
         alert("Transaksi invalid. Uang yang anda masukkan kurang dari total pembelian");
         return false
     }
-    alertify.success("Transaksi Berhasil");
-    $('#modalPayment').modal('hide');
     sendDataToAPI()
-    resetCurrentTransaction()
 }
 
 function addStructItem() {
@@ -126,15 +123,16 @@ function sendDataToAPI() {
             "member_id": memberIDInt,
         });
     }
+
     let salesHead = {
         "invoice": invoice,
         "user_id": userID,
-        "total_item": 1,
-        "total_price": 1,
-        "total_purchase": 1,
-        "total_tax": 1,
-        "total_discount": 1,
-        "total_pay": 1,
+        "total_tax": getTotalPPNGlobal(),
+        "total_pay": getTotalPayGlobal(),
+        "total_item": getTotalItemGlobalVal(),
+        "total_price": getTotalPriceGlobalVal(),
+        "total_purchase": getTotalPurchaseGlobalVal(),
+        "total_discount": getTotalDiscountGlobalVal(),
     }
 
     let data = {"sales_head": salesHead, "sales_detail": salesDetail}
@@ -151,14 +149,15 @@ async function sendSalesRequest(data) {
 }
 
 function processSalesAjaxRequest(data) {
-    // let loadingIndicator = $('body').loadingIndicator().data("loadingIndicator");
+    let loadingIndicator = $('body').loadingIndicator().data("loadingIndicator");
 
     sendSalesRequest(data).then(function (results) {
-        console.log("Results : " + results)
+        alertify.success("Transaksi Berhasil");
+        $('#modalPayment').modal('hide');
+        resetCurrentTransaction()
     }).catch(function (err) {
-        console.log("Err : " + err.response.data.message)
         buildErrorPopup(err.response.data.message);
     }).finally(function () {
-        // loadingIndicator.hide();
+        loadingIndicator.hide();
     });
 }

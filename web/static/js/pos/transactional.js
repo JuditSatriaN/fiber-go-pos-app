@@ -63,10 +63,12 @@ function setTotalSection() {
     let totalItem = 0
     let totalPrice = 0
     let totalDiscount = 0
+    let totalPurchase = 0
 
     $.each(getAllDataCarts(), function (index, value) {
         totalItem += value["qty"]
         totalPrice += value["total"]
+        totalPurchase += value["purchase"]
         totalDiscount += value["discount"] * value["qty"]
 
         if (value.ppn) {
@@ -81,13 +83,20 @@ function setTotalSection() {
 
     let totalPembelian = totalPrice + totalPPN - totalDiscount;
     totalPembelianObj.html(formatIDR(totalPembelian));
+
+    setTotalPPNGlobal(totalPPN);
+    setTotalItemGlobalVal(totalItem);
+    setTotalPayGlobal(totalPembelian);
+    setTotalPriceGlobalVal(totalPrice);
+    setTotalPurchaseGlobalVal(totalPurchase);
+    setTotalDiscountGlobalVal(totalDiscount);
 }
 
 function resetCurrentTransaction() {
     removeAllDataCart()
     $('#tableCarts').bootstrapTable('load', getAllDataCarts());
-    // initialization jquery selector
 
+    // initialization jquery selector
     $("#totalPPN").html("0");
     $("#totalItem").html("0");
     $("#totalPrice").html("0");
@@ -99,4 +108,6 @@ function resetCurrentTransaction() {
     $("#is-inserted").val("false");
     $("#btnAddMember").html("Add Member");
     $("#btnAddMember").prop('disabled', false);
+
+    resetAllGlobalVal()
 }
